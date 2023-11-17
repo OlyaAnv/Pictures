@@ -1,14 +1,20 @@
-package com.example.pictures
+package com.example.pictures.ui.scenes
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pictures.data.TestPicture
-import com.example.pictures.viewmodel.PicturesViewModel
+import com.example.pictures.R
+import com.example.pictures.data.models.Photo
+import com.example.pictures.ui.PictureAdapter
+import com.example.pictures.ui.viewmodel.PicturesViewModel
 
 class ListFragment : Fragment(R.layout.list_fragment), PictureAdapter.Listener {
 
@@ -17,6 +23,12 @@ class ListFragment : Fragment(R.layout.list_fragment), PictureAdapter.Listener {
     private lateinit var adapter: PictureAdapter
     private lateinit var rv: RecyclerView
     private lateinit var tvStatus: TextView
+    private lateinit var progressBar: ProgressBar
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("mylog", "onCreate List")
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,14 +38,12 @@ class ListFragment : Fragment(R.layout.list_fragment), PictureAdapter.Listener {
         observeViewModel()
     }
 
-
-
-    override fun onClick(testPicture: TestPicture) {
+    override fun onClick(photo: Photo) {
         parentFragmentManager
             .beginTransaction()
             .replace(
                 R.id.fragmentContainer,
-                DetailFragment.newInstance(testPicture.imageRes),
+                DetailFragment.newInstance(photo.url),
                 " DetailFragment"
             )
             .addToBackStack(null)
@@ -43,9 +53,10 @@ class ListFragment : Fragment(R.layout.list_fragment), PictureAdapter.Listener {
     private fun initViews(view: View) {
         rv = view.findViewById(R.id.rv)
         tvStatus = view.findViewById(R.id.tvStatus)
+        progressBar = view.findViewById(R.id.progressBar)
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         rv.layoutManager = GridLayoutManager(requireContext(), 2)
         adapter = PictureAdapter(this)
         rv.adapter = adapter
@@ -53,22 +64,21 @@ class ListFragment : Fragment(R.layout.list_fragment), PictureAdapter.Listener {
 
 
     private fun observeViewModel() {
-        viewModel.testPhoto.observe(viewLifecycleOwner){
-                list ->
+        viewModel.photo.observe(viewLifecycleOwner) { list ->
             adapter.list = list
             adapter.notifyDataSetChanged()
         }
-//        viewModel.status.observe(viewLifecycleOwner) { status ->
-//            tvStatus.text = status
-//        }
-//        viewModel.photo.observe(viewLifecycleOwner){
-//                list ->
-//            adapter.mylist = list
-//            adapter.notifyDataSetChanged()
-//        }
+        viewModel.status.observe(viewLifecycleOwner) { status ->
+            tvStatus.text = status
+            tvStatus.visibility = VISIBLE
+        }
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) progressBar.visibility = VISIBLE
+            else progressBar.visibility = GONE
+        }
     }
 
-    private fun setupSwipeListener(rvShopList: RecyclerView) {
+    //  private fun setupSwipeListener(rvShopList: RecyclerView) {
 //        val callback = object : ItemTouchHelper.SimpleCallback(
 //            0,
 //            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -89,5 +99,5 @@ class ListFragment : Fragment(R.layout.list_fragment), PictureAdapter.Listener {
 //        }
 //        val itemTouchHelper = ItemTouchHelper(callback)
 //        itemTouchHelper.attachToRecyclerView(rvShopList)
-    }
+    //   }
 }

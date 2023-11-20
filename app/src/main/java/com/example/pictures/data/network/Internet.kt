@@ -1,14 +1,15 @@
 package com.example.pictures.data.network
 
+import com.example.pictures.data.constants.BASE_URL
+import com.example.pictures.data.constants.PATH
+import com.example.pictures.data.constants.QUERRY
 import com.example.pictures.data.models.PhotoList
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
-
-private const val BASE_URL = "https://api.slingacademy.com/"
-private const val PATH = "v1/sample-data/photos?limit=132"
+import retrofit2.http.Query
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -21,7 +22,7 @@ private val retrofit = Retrofit.Builder()
 
 interface Network {
     @GET(PATH)
-    suspend fun getDataFromInternet(): retrofit2.Response<PhotoList>
+    suspend fun getDataFromInternet(@Query(QUERRY) limit_of_pictures:String): retrofit2.Response<PhotoList>
 }
 
 object NetworkObject {

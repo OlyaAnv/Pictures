@@ -67,7 +67,6 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                     }
 
                     override fun onLoadCleared(placeholder: Drawable?) {
-                        // Called when the resource is cleared.
                     }
                 })
         }

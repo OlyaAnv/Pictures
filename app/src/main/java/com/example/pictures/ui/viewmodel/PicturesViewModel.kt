@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pictures.data.constants.NUMBER_OF_PICTURES
 import com.example.pictures.data.models.Photo
 import com.example.pictures.domain.repo.PictureRepo
 import com.example.pictures.domain.repo.PictureRepoImpl
@@ -35,7 +36,7 @@ class PicturesViewModel : ViewModel() {
             try {
                 val response = withContext(Dispatchers.IO) {
                     Log.d("mylog", "ретрофит")
-                    pictureRepo.loadPictures()
+                    pictureRepo.loadPictures(NUMBER_OF_PICTURES)
                 }
                 if (response.isSuccessful) {
                     _photo.value = response.body()?.photos

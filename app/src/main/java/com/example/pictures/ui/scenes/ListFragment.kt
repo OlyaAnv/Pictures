@@ -77,27 +77,4 @@ class ListFragment : Fragment(R.layout.list_fragment), PictureAdapter.Listener {
             else progressBar.visibility = GONE
         }
     }
-
-    //  private fun setupSwipeListener(rvShopList: RecyclerView) {
-//        val callback = object : ItemTouchHelper.SimpleCallback(
-//            0,
-//            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-//        ) {
-//
-//            override fun onMove(
-//                recyclerView: RecyclerView,
-//                viewHolder: RecyclerView.ViewHolder,
-//                target: RecyclerView.ViewHolder
-//            ): Boolean {
-//                return false
-//            }
-//
-//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                val item = adapter.currentList[viewHolder.adapterPosition]
-//                viewModel.deleteShopItem(item)
-//            }
-//        }
-//        val itemTouchHelper = ItemTouchHelper(callback)
-//        itemTouchHelper.attachToRecyclerView(rvShopList)
-    //   }
 }

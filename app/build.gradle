@@ -43,14 +43,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    // Moshi
-    implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
-    // Retrofit with Moshi Converter
-    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
-    implementation 'androidx.leanback:leanback:1.0.0'
-    // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation project(path: ':internet_module')
 
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'

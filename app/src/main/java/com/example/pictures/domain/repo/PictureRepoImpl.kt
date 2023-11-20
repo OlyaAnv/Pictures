@@ -1,12 +1,10 @@
 package com.example.pictures.domain.repo
 
-import com.example.pictures.data.models.PhotoList
-import com.example.pictures.data.network.NetworkObject
-import retrofit2.Response
+import com.example.internet_module.PhotoList
+import com.example.internet_module.getApi
 
 class PictureRepoImpl:PictureRepo {
-    override suspend fun loadPictures(number_of_pictures:Int): Response<PhotoList>{
-        return NetworkObject.retrofitService.getDataFromInternet(number_of_pictures.toString())
+    override suspend fun loadPictures(number_of_pictures:Int): PhotoList {
+        return getApi().getDataFromInternet(number_of_pictures.toString())
     }
-
 }

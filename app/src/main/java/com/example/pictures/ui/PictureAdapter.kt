@@ -4,7 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.pictures.data.models.Photo
+import com.example.internet_module.Photo
+
 import com.example.pictures.databinding.PictureItemBinding
 
 class PictureAdapter(private val listener: Listener) :

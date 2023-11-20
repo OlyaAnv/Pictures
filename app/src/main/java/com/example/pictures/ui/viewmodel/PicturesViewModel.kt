@@ -1,17 +1,17 @@
 package com.example.pictures.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pictures.data.constants.NUMBER_OF_PICTURES
-import com.example.pictures.data.models.Photo
+import com.example.internet_module.NUMBER_OF_PICTURES
+import com.example.internet_module.Photo
 import com.example.pictures.domain.repo.PictureRepo
 import com.example.pictures.domain.repo.PictureRepoImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class PicturesViewModel : ViewModel() {
     private var pictureRepo: PictureRepo = PictureRepoImpl()
@@ -30,20 +30,18 @@ class PicturesViewModel : ViewModel() {
     }
 
     private fun getDataFromInternet() {
-        Log.d("mylog", "запустилась getDataFromInternet()")
+        Timber.tag("mylog").d("launch getDataFromInternet()")
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                val response = withContext(Dispatchers.IO) {
-                    Log.d("mylog", "ретрофит")
+                val list = withContext(Dispatchers.IO) {
+                    Timber.tag("mylog").d("retrofit load")
                     pictureRepo.loadPictures(NUMBER_OF_PICTURES)
                 }
-                if (response.isSuccessful) {
-                    _photo.value = response.body()?.photos
-                    _isLoading.value = false
-                }
+                _photo.value = list.photos
+                _isLoading.value = false
             } catch (e: Exception) {
-                Log.d("mylog", "Ошибка ретрофита ${e.message}")
+                Timber.tag("mylog").d(e)
                 _status.value = "Не удалось получить данные из интернета"
                 _isLoading.value = false
             }

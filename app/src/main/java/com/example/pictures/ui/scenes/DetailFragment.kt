@@ -3,7 +3,6 @@ package com.example.pictures.ui.scenes
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -12,6 +11,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.example.pictures.R
+import timber.log.Timber
 
 private const val IMG_RES = "img_res_url"
 
@@ -34,7 +34,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parseParams()
-        Log.d("mylog", "onCreate Detail")
+        Timber.tag("mylog").d("onCreate Detail")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

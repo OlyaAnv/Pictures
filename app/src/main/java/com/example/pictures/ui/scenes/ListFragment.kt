@@ -1,7 +1,6 @@
 package com.example.pictures.ui.scenes
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -11,10 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.internet_module.Photo
 import com.example.pictures.R
-import com.example.pictures.data.models.Photo
 import com.example.pictures.ui.PictureAdapter
 import com.example.pictures.ui.viewmodel.PicturesViewModel
+import timber.log.Timber
 
 class ListFragment : Fragment(R.layout.list_fragment), PictureAdapter.Listener {
 
@@ -27,7 +27,7 @@ class ListFragment : Fragment(R.layout.list_fragment), PictureAdapter.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("mylog", "onCreate List")
+        Timber.tag("mylog").d("onCreate List")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

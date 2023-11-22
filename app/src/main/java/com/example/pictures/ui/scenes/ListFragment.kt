@@ -1,6 +1,9 @@
 package com.example.pictures.ui.scenes
 
+import android.content.Context
 import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
@@ -103,8 +106,18 @@ class ListFragment : Fragment(R.layout.list_fragment), PictureAdapter.Listener {
     }
 
     private fun refreshData() {
-        viewModel.clearListOfPhoto()
-        viewModel.getDataFromInternet(dontUseCash = true)
+        if (isNetworkAvailable(requireContext())) {
+            viewModel.clearListOfPhoto()
+            viewModel.getDataFromInternet(dontUseCash = true)
+        }
         //Toast.makeText(requireContext(), "Data Refreshed", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
+        return networkCapabilities!= null && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 }

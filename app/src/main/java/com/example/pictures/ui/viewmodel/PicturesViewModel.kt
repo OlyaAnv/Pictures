@@ -14,6 +14,7 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class PicturesViewModel : ViewModel() {
+
     private var pictureRepo: PictureRepo = PictureRepoImpl()
 
     private val _isLoading = MutableLiveData<Boolean>().apply { value = false }
@@ -29,22 +30,28 @@ class PicturesViewModel : ViewModel() {
         getDataFromInternet()
     }
 
-    private fun getDataFromInternet() {
+    fun getDataFromInternet(dontUseCash:Boolean = false) {
         Timber.tag("mylog").d("launch getDataFromInternet()")
         viewModelScope.launch {
             _isLoading.value = true
+            _status.value = ""
             try {
                 val list = withContext(Dispatchers.IO) {
                     Timber.tag("mylog").d("retrofit load")
-                    pictureRepo.loadPictures(NUMBER_OF_PICTURES)
+                    if(dontUseCash) {pictureRepo.loadPicturesWithoutCash(NUMBER_OF_PICTURES)}
+                    else {pictureRepo.loadPictures(NUMBER_OF_PICTURES)}
                 }
                 _photo.value = list.photos
                 _isLoading.value = false
             } catch (e: Exception) {
-                Timber.tag("mylog").d(e)
                 _status.value = "Не удалось получить данные из интернета"
                 _isLoading.value = false
+                Timber.tag("mylog").d(e)
             }
         }
+    }
+
+    fun clearListOfPhoto(){
+        _photo.value = emptyList()
     }
 }

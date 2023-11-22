@@ -19,7 +19,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
 
     private lateinit var img: SubsamplingScaleImageView
     private var imgUrl: String? = null
-    private var emptyImageRes = R.drawable.ic_baseline_broken_image_24
+    private var emptyImageRes = R.drawable.broken_image
 
     companion object {
         fun newInstance(imgUrl: String): Fragment {

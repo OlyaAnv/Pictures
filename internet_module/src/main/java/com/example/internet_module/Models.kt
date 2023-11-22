@@ -5,6 +5,6 @@ data class PhotoList(
 )
 
 data class Photo(
-    val description: String,
+    val title: String,
     val url: String
 )

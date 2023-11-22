@@ -5,6 +5,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Query
 
 const val BASE_URL = "https://api.slingacademy.com/"
@@ -19,6 +20,10 @@ private val moshi = Moshi.Builder()
 interface RetrofitApi {
     @GET(PATH)
     suspend fun getDataFromInternet(@Query(QUERRY) limit_of_pictures: String): PhotoList
+
+    @Headers("Cache-Control: no-cache")
+    @GET(PATH)
+    suspend fun getDataFromInternetWithoutCash(@Query(QUERRY) limit_of_pictures: String): PhotoList
 }
 
 fun getApi():RetrofitApi {

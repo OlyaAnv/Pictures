@@ -16,4 +16,6 @@
 - [x] Масштабирование картинки, сторонняя библиотека (2? дня либо больше)
 - [x] Кэширование глайд - 3 дня
 - [x] Сделать свайп - 2 дня
-<li> пагинация? - 2 дня</li>
+<li> пагинация? </li>
+<p></p>
+<img src="https://github.com/OlyaAnv/ComposeExample/blob/master/git%20exapl%20compose.png" width="400">

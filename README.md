@@ -18,4 +18,4 @@
 - [x] Сделать свайп - 2 дня
 <li> пагинация? </li>
 <p></p>
-<img src="https://github.com/OlyaAnv/ComposeExample/blob/master/git%20exapl%20compose.png" width="400">
+<img src="https://github.com/OlyaAnv/Pictures/blob/master/c%20(3).jpg" width="500">

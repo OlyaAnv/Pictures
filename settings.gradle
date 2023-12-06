@@ -14,4 +14,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Pictures"
 include ':app'
-include ':internet_module'

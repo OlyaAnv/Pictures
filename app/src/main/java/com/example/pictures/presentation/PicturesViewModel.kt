@@ -1,21 +1,24 @@
-package com.example.pictures.ui.viewmodel
+package com.example.pictures.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.internet_module.NUMBER_OF_PICTURES
-import com.example.internet_module.Photo
-import com.example.pictures.domain.repo.PictureRepo
-import com.example.pictures.domain.repo.PictureRepoImpl
+import com.example.pictures.data.repository.PhotoListRepositoryImpl
+import com.example.pictures.domain.GetPhotosUseCase
+import com.example.pictures.domain.Photo
+import com.example.pictures.domain.PhotoListRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
+const val NUMBER_OF_PICTURES = 26 //max 132
+
 class PicturesViewModel : ViewModel() {
 
-    private var pictureRepo: PictureRepo = PictureRepoImpl()
+    private var photoListRepository: PhotoListRepository = PhotoListRepositoryImpl
+    private val getPhotosUseCase = GetPhotosUseCase(photoListRepository)
 
     private val _isLoading = MutableLiveData<Boolean>().apply { value = false }
     val isLoading: LiveData<Boolean> = _isLoading
@@ -26,11 +29,12 @@ class PicturesViewModel : ViewModel() {
     private val _photo = MutableLiveData<List<Photo>>()
     val photo: LiveData<List<Photo>> = _photo
 
+
     init {
-        getDataFromInternet()
+        getData()
     }
 
-    fun getDataFromInternet(dontUseCash:Boolean = false) {
+    fun getData() {
         Timber.tag("mylog").d("launch getDataFromInternet()")
         viewModelScope.launch {
             _isLoading.value = true
@@ -38,20 +42,29 @@ class PicturesViewModel : ViewModel() {
             try {
                 val list = withContext(Dispatchers.IO) {
                     Timber.tag("mylog").d("retrofit load")
-                    if(dontUseCash) {pictureRepo.loadPicturesWithoutCash(NUMBER_OF_PICTURES)}
-                    else {pictureRepo.loadPictures(NUMBER_OF_PICTURES)}
+                    getPhotosUseCase.getPhotos(NUMBER_OF_PICTURES)
                 }
-                _photo.value = list.photos
+                _photo.value = list
                 _isLoading.value = false
+
             } catch (e: Exception) {
-                _status.value = "Не удалось получить данные из интернета"
+                _status.value = "не удается загрузить данные из интернета"
                 _isLoading.value = false
                 Timber.tag("mylog").d(e)
+                Timber.tag("mylog").d("${_status.value}")
             }
         }
     }
 
     fun clearListOfPhoto(){
         _photo.value = emptyList()
+    }
+
+    fun setStatus(status:String){
+        _status.value = status
+    }
+
+    fun setLoading(isLoading:Boolean){
+        _isLoading.value = isLoading
     }
 }

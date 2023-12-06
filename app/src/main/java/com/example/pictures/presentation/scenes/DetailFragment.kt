@@ -1,4 +1,4 @@
-package com.example.pictures.ui.scenes
+package com.example.pictures.presentation.scenes
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable

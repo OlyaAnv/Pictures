@@ -1,12 +1,12 @@
-package com.example.pictures.ui
+package com.example.pictures.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.internet_module.Photo
 import com.example.pictures.R
 import com.example.pictures.databinding.PictureItemBinding
+import com.example.pictures.domain.Photo
 
 class PictureAdapter(private val listener: Listener) :
     RecyclerView.Adapter<PictureAdapter.PictureHolder>() {

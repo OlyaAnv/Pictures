@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Pictures</string>
     <string name="emptyimage">emptyImage</string>
+    <string name="no_internet">Не удается обновить</string>
+    <string name="internet_wifi">wifi подключение к интернету</string>
+    <string name="error_internet">не удается загрузить данные из интернета</string>
 </resources>

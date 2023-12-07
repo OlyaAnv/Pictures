@@ -6,12 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pictures.R
 import com.example.pictures.databinding.PictureItemBinding
-import com.example.pictures.domain.Photo
+import com.example.pictures.presentation.model.PhotoUI
+
 
 class PictureAdapter(private val listener: Listener) :
     RecyclerView.Adapter<PictureAdapter.PictureHolder>() {
 
-    var list = emptyList<Photo>()
+    var list = emptyList<PhotoUI>()
 
     class PictureHolder(val binding: PictureItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -38,6 +39,6 @@ class PictureAdapter(private val listener: Listener) :
     override fun getItemCount(): Int = list.size
 
     interface Listener {
-        fun onClick(photo: Photo)
+        fun onClick(photo: PhotoUI)
     }
 }

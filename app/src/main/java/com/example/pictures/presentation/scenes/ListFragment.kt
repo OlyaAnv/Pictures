@@ -17,14 +17,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.pictures.R
-import com.example.pictures.domain.Photo
 import com.example.pictures.presentation.PicturesViewModel
 import com.example.pictures.presentation.adapter.PictureAdapter
+import com.example.pictures.presentation.model.PhotoUI
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ListFragment : Fragment(R.layout.list_fragment), PictureAdapter.Listener {
@@ -52,7 +48,7 @@ class ListFragment : Fragment(R.layout.list_fragment), PictureAdapter.Listener {
         observeViewModel()
     }
 
-    override fun onClick(photo: Photo) {
+    override fun onClick(photo: PhotoUI) {
         parentFragmentManager
             .beginTransaction()
             .replace(

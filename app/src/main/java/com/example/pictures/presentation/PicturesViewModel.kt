@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pictures.data.repository.PhotoListRepositoryImpl
-import com.example.pictures.domain.GetPhotosUseCase
 import com.example.pictures.domain.Photo
 import com.example.pictures.domain.PhotoListRepository
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +17,6 @@ const val NUMBER_OF_PICTURES = 26 //max 132
 class PicturesViewModel : ViewModel() {
 
     private var photoListRepository: PhotoListRepository = PhotoListRepositoryImpl
-    private val getPhotosUseCase = GetPhotosUseCase(photoListRepository)
 
     private val _isLoading = MutableLiveData<Boolean>().apply { value = false }
     val isLoading: LiveData<Boolean> = _isLoading
@@ -42,7 +40,7 @@ class PicturesViewModel : ViewModel() {
             try {
                 val list = withContext(Dispatchers.IO) {
                     Timber.tag("mylog").d("retrofit load")
-                    getPhotosUseCase.getPhotos(NUMBER_OF_PICTURES)
+                    photoListRepository.getPhotos(NUMBER_OF_PICTURES)
                 }
                 _photo.value = list
                 _isLoading.value = false

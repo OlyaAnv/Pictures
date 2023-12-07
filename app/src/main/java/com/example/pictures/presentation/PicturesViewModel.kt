@@ -5,8 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pictures.data.repository.PhotoListRepositoryImpl
-import com.example.pictures.domain.Photo
 import com.example.pictures.domain.PhotoListRepository
+import com.example.pictures.presentation.mapper.PhotoMapper
+import com.example.pictures.presentation.model.PhotoUI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -17,6 +18,7 @@ const val NUMBER_OF_PICTURES = 26 //max 132
 class PicturesViewModel : ViewModel() {
 
     private var photoListRepository: PhotoListRepository = PhotoListRepositoryImpl
+    private val mapper = PhotoMapper()
 
     private val _isLoading = MutableLiveData<Boolean>().apply { value = false }
     val isLoading: LiveData<Boolean> = _isLoading
@@ -24,8 +26,8 @@ class PicturesViewModel : ViewModel() {
     private val _status = MutableLiveData("")
     val status: LiveData<String> = _status
 
-    private val _photo = MutableLiveData<List<Photo>>()
-    val photo: LiveData<List<Photo>> = _photo
+    private val _photo = MutableLiveData<List<PhotoUI>>()
+    val photo: LiveData<List<PhotoUI>> = _photo
 
 
     init {
@@ -42,7 +44,7 @@ class PicturesViewModel : ViewModel() {
                     Timber.tag("mylog").d("retrofit load")
                     photoListRepository.getPhotos(NUMBER_OF_PICTURES)
                 }
-                _photo.value = list
+                _photo.value = mapper.mapListDataModelToListUiModel(list)
                 _isLoading.value = false
 
             } catch (e: Exception) {

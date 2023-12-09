@@ -2,10 +2,17 @@
 <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragmentContainer"
-    android:name="com.example.pictures.ListFragment"
+    android:name="com.example.pictures.presentation.scenes.ListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:layout="@layout/list_fragment">
+    tools:context=".presentation.MainActivity"
+    tools:layout="@layout/list_fragment"
+    >
 
 </androidx.fragment.app.FragmentContainerView>
+
+    <!--
+
+    android:name="com.example.pictures.ui.test.PostFragment"
+    tools:layout="@layout/post_fragment"
+    -->

@@ -1,16 +1,18 @@
-package com.example.pictures
+package com.example.pictures.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pictures.data.Photo
-import com.example.pictures.data.TestPicture
+import com.bumptech.glide.Glide
+import com.example.pictures.R
 import com.example.pictures.databinding.PictureItemBinding
+import com.example.pictures.presentation.model.PhotoUI
+
 
 class PictureAdapter(private val listener: Listener) :
     RecyclerView.Adapter<PictureAdapter.PictureHolder>() {
 
-    var list = emptyList<TestPicture>()
+    var list = emptyList<PhotoUI>()
 
     class PictureHolder(val binding: PictureItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -20,15 +22,23 @@ class PictureAdapter(private val listener: Listener) :
     }
 
     override fun onBindViewHolder(holder: PictureHolder, position: Int) {
-        holder.binding.imageView.setImageResource(list[position].imageRes)
+        Glide.with(holder.binding.imageView.context)
+            .load(list[position].url)
+//            .diskCacheStrategy(DiskCacheStrategy.NONE)
+//            .skipMemoryCache(true)
+            .centerCrop()
+            .placeholder(R.drawable.blank_image)
+            .into(holder.binding.imageView)
+        holder.binding.imageView.contentDescription = list[position].title
         holder.binding.imageView.setOnClickListener {
             listener.onClick(list[position])
         }
+        //holder.binding.textView.text = list[position].title
     }
 
     override fun getItemCount(): Int = list.size
 
     interface Listener {
-        fun onClick(testPicture: TestPicture)
+        fun onClick(photo: PhotoUI)
     }
 }

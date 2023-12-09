@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+/internet_module/
+/network_module/
+.idea/

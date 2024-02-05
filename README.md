@@ -16,6 +16,7 @@
 - [x] Кэширование глайд - 3 дня
 - [x] Сделать свайп - 2 дня
 <p></p>
+<p></p>
 <img src="https://github.com/OlyaAnv/Pictures/blob/master/c%20(3).jpg" width="500">
 
 ## Технологии

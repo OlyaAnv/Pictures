@@ -15,9 +15,10 @@
 - [x] Масштабирование картинки, сторонняя библиотека (2? дня либо больше)
 - [x] Кэширование глайд - 3 дня
 - [x] Сделать свайп - 2 дня
+- [x]  разделение на модули
 <p></p>
 <p></p>
 <img src="https://github.com/OlyaAnv/Pictures/blob/master/c%20(3).jpg" width="500">
 
 ## Технологии
-<p>Retrofit, Moshi, Glide, Clean Architecture, MVVM, Kotlin Coroutines, SwipeRefreshLayout, SubsamplingScaleImageView </p>
+<p>Retrofit, Moshi, Glide, Clean Architecture, MVVM, Kotlin Coroutines, SwipeRefreshLayout, SubsamplingScaleImageView,  </p>

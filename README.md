@@ -20,4 +20,4 @@
 <img src="https://github.com/OlyaAnv/Pictures/blob/master/c%20(3).jpg" width="500">
 
 ## Технологии
-<p>Retrofit, Moshi, Glide, Clean Architecture, MVVM, Kotlin Coroutines, SwipeRefreshLayout </p>
+<p>Retrofit, Moshi, Glide, Clean Architecture, MVVM, Kotlin Coroutines, SwipeRefreshLayout, SubsamplingScaleImageView </p>
